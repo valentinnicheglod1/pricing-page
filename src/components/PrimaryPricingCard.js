@@ -14,7 +14,7 @@ export const PrimaryPricingCard = (props) => {
             <div className='grid gap-4'>
                 <div>
                     <h4 className='mb-1 font-semibold text-purple'>{title}</h4>
-                    <div className='text-balance text-xs leading-4 text-gray-700 opacity-90'>{subtitle}</div>
+                    <div className='text-balance text-xs leading-4 text-gray-700 opacity-90 lg:text-balance xxs:text-balance'>{subtitle}</div>
                 </div>
                 <hr />
                 <h2 className='text-3xl font-extrabold text-purple'>{`$${props.yearlyPlanSelected ? price * 12 * 0.25 : price} / ${props.yearlyPlanSelected ? "year" : "month"}`}</h2>

@@ -2,8 +2,9 @@ import "./App.scss";
 import { ConfigProvider, Segmented } from "antd";
 import { PricingCard } from "./components/PricingCard";
 import { PrimaryPricingCard } from "./components/PrimaryPricingCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
+import ScrollReveal from 'scrollreveal';
 
 const pricingCards = [
     {
@@ -22,7 +23,7 @@ const pricingCards = [
     },
     {
         title: "Basic",
-        subtitle: "For small to medium size business that have a smaller target audience",
+        subtitle: "For small size business that have a smaller target audience",
         price: 25,
         primary: false,
         features: [
@@ -35,7 +36,7 @@ const pricingCards = [
     },
     {
         title: "Professional",
-        subtitle: "For larger business that have a bigger target audience",
+        subtitle: "For large size business that have a bigger target audience",
         price: 50,
         primary: true,
         features: [
@@ -64,6 +65,11 @@ const pricingCards = [
 function App() {
     const [yearlyPlanSelected, setYearlyPlanSelected] = useState(false);
 
+    useEffect(() => {
+      ScrollReveal().reveal('.card-reveal', { interval: 200, delay: 200, distance: '500px' });
+      ScrollReveal().reveal('.header-reveal', { interval: 200, delay: 200, distance: '100px', origin: 'top' });
+    }, []);
+
     return (
         <ConfigProvider
             theme={{
@@ -84,23 +90,23 @@ function App() {
                 },
             }}
         >
-            <div className='main-wrapper relative w-screen bg-dark'>
+            <div className='main-wrapper relative w-full bg-dark'>
                 <Header />
                 <main className='container relative mx-auto gap-16 py-16'>
-                    <div className='shadow-1 shadow'></div>
-                    <div className='shadow-2 shadow'></div>
-                    <header className='relative z-10'>
+                    <div className='shadow-1 animate-jump-in shadow'></div>
+                    <div className='shadow-2 animate-jump-in shadow'></div>
+                    <header className='relative z-10 2xl:mt-20'>
                         <div className='grid justify-center gap-8'>
                             <div className='grid gap-4'>
-                                <span className='mb-2 text-center font-semibold text-purple'>It's time to take action</span>
-                                <h1 className='text-center text-3xl font-extrabold text-white md:text-5xl'>
+                                <span className='mb-2 text-center font-semibold text-purple header-reveal xxs:text-xs'>It's time to take action</span>
+                                <h1 className='text-center text-3xl font-extrabold text-white xxs:text-2xl md:text-5xl header-reveal'>
                                     Reach more people,
                                     <br />
                                     get more results.
                                 </h1>
-                                <span className='text-center text-neutral-300'>Choose your plan and unlock endless possibilities</span>
+                                <span className='text-center text-neutral-300 header-reveal xxs:text-xs'>Choose your plan and unlock endless possibilities</span>
                             </div>
-                            <div className='flex justify-center'>
+                            <div className='flex justify-center header-reveal'>
                                 <Segmented
                                     options={["Monthly", "Yearly"]}
                                     onChange={(value) => setYearlyPlanSelected(value === "Yearly")}
@@ -108,25 +114,27 @@ function App() {
                             </div>
                         </div>
                     </header>
-                    <section className='relative z-10 flex items-center'>
-                        <div className='grid grid-cols-none grid-rows-4 gap-4 px-4 sm:grid-cols-2 sm:grid-rows-none lg:grid-cols-4'>
-                            {pricingCards.map((data) =>
-                                data.primary ? (
-                                    <PrimaryPricingCard
-                                        data={data}
-                                        yearlyPlanSelected={yearlyPlanSelected}
-                                    />
-                                ) : (
-                                    <PricingCard
-                                        data={data}
-                                        yearlyPlanSelected={yearlyPlanSelected}
-                                    />
-                                ),
-                            )}
+                    <section className='relative z-10 flex items-center justify-center'>
+                        <div className='grid grid-cols-none grid-rows-4 gap-0 px-4 sm:grid-cols-2 sm:grid-rows-none sm:gap-4 lg:grid-cols-4'>
+                                {pricingCards.map((data) => (
+                                    <div className="card-reveal">
+                                        {data.primary ? (
+                                            <PrimaryPricingCard
+                                                data={data}
+                                                yearlyPlanSelected={yearlyPlanSelected}
+                                            />
+                                        ) : (
+                                            <PricingCard
+                                                data={data}
+                                                yearlyPlanSelected={yearlyPlanSelected}
+                                            />
+                                        )},
+                                    </div>
+                                ))}
                         </div>
                     </section>
                 </main>
-                <div className='purple-grid absolute bottom-0 z-0 w-screen' />
+                <div className='purple-grid absolute bottom-0 z-0 w-screen animate-fade animate-duration-1000' />
             </div>
         </ConfigProvider>
     );
