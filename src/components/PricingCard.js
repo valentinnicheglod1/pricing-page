@@ -10,7 +10,7 @@ export const PricingCard = (props) => {
       className="grid gap-8 p-4 w-full bg-[#07075F50] border-[#FFFFFF25] rounded-lg relative"
       id="pricing-card"
       style={{ borderWidth: "1px", backdropFilter: "blur(5px)" }}
-      >
+    >
       {props.yearlyPlanSelected && price > 0 && (
         <div className="absolute right-2 top-2 bg-green px-2 py-1 rounded-full shadow-sm text-xs font-semibold text-white mb-3">
           -25%
